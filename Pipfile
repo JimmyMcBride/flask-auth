@@ -13,6 +13,7 @@ psycopg2 = "*"
 flask-migrate = "*"
 gunicorn = "*"
 flask-script = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.8"
