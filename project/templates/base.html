@@ -1,62 +1,77 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Flask Auth Example</title>
-    <!-- <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
-    /> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  </head>
 
-  <body> 
-    <section class="container">
-        <nav class="nav-extended">
-          <div class="nav-wrapper blue"> 
-            <ul id="nav-mobile" class="">
-              <li>
-                <a href="{{ url_for('main.index') }}">
-                  Home
-                </a>
-              </li>
-              {% if current_user.is_authenticated %}
-              <li>
-                <a href="{{ url_for('main.profile') }}">
-                  Profile
-                </a>
-              </li>
-              {% endif %} {% if not current_user.is_authenticated %}
-              <li>
-                <a href="{{ url_for('auth.login') }}">
-                  Login
-                </a>
-              </li>
-              <li>
-                <a href="{{ url_for('auth.signup') }}">
-                  Sign Up
-                </a>
-              </li>
-              {% endif %} {% if current_user.is_authenticated %}
-              <li>
-                <a href="{{ url_for('auth.logout') }}">
-                  Logout
-                </a>
-              </li>
-              {% endif %}
-            </ul>
-          </div>
-        </div> 
-      </nav> 
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flask Auth Example</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+  <script>
 
-      <div class="">
-        <div class="">
-          {% block content %} {% endblock %}
-        </div>
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('9c22e9c4f55d73b05ec5', {
+      cluster: 'us2',
+      forceTLS: true
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function (data) {
+      alert(JSON.stringify(data));
+    });
+  </script>
+</head>
+
+<body>
+  <section class="container">
+    <nav class="nav-extended">
+      <div class="nav-wrapper blue">
+        <ul>
+          <li>
+            <a href="{{ url_for('main.index') }}">
+              Home
+            </a>
+          </li>
+          {% if current_user.is_authenticated %}
+          <li>
+            <a href="{{ url_for('main.profile') }}">
+              Profile
+            </a>
+          </li>
+          {% endif %} {% if not current_user.is_authenticated %}
+          <li>
+            <a href="{{ url_for('auth.login') }}">
+              Login
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('auth.signup') }}">
+              Sign Up
+            </a>
+          </li>
+          {% endif %} {% if current_user.is_authenticated %}
+          <li>
+            <a href="{{ url_for('auth.logout') }}">
+              Logout
+            </a>
+          </li>
+          {% endif %}
+        </ul>
       </div>
-    </section>
-  </body>
+      </div>
+    </nav>
+
+    <div>
+      <div>
+        {% block content %} {% endblock %}
+      </div>
+    </div>
+  </section>
+</body>
+
 </html>

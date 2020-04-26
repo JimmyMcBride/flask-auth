@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 import os
 
+
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
 

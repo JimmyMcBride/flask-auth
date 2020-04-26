@@ -14,6 +14,8 @@ flask-migrate = "*"
 gunicorn = "*"
 flask-script = "*"
 python-dotenv = "*"
+pusher-client = "*"
+pusher = "*"
 
 [requires]
 python_version = "3.8"
