@@ -14,7 +14,6 @@ flask-migrate = "*"
 gunicorn = "*"
 flask-script = "*"
 python-dotenv = "*"
-pusher-client = "*"
 pusher = "*"
 
 [requires]
